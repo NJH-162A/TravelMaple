@@ -1,0 +1,74 @@
+﻿@page "/travelmapleusers/create"
+@using Microsoft.EntityFrameworkCore
+@using TravelMaple.Domain
+@inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>TravelMapleUser</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="TravelMapleUser" OnValidSubmit="AddTravelMapleUser" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="firstname" class="form-label">FirstName:</label> 
+                <InputText id="firstname" @bind-Value="TravelMapleUser.FirstName" class="form-control" /> 
+                <ValidationMessage For="() => TravelMapleUser.FirstName" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="lastname" class="form-label">LastName:</label> 
+                <InputText id="lastname" @bind-Value="TravelMapleUser.LastName" class="form-control" /> 
+                <ValidationMessage For="() => TravelMapleUser.LastName" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="emailaddress" class="form-label">EmailAddress:</label> 
+                <InputText id="emailaddress" @bind-Value="TravelMapleUser.EmailAddress" class="form-control" /> 
+                <ValidationMessage For="() => TravelMapleUser.EmailAddress" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datecreated" class="form-label">DateCreated:</label> 
+                <InputDate id="datecreated" @bind-Value="TravelMapleUser.DateCreated" class="form-control" /> 
+                <ValidationMessage For="() => TravelMapleUser.DateCreated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dateupdated" class="form-label">DateUpdated:</label> 
+                <InputDate id="dateupdated" @bind-Value="TravelMapleUser.DateUpdated" class="form-control" /> 
+                <ValidationMessage For="() => TravelMapleUser.DateUpdated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="createdby" class="form-label">CreatedBy:</label> 
+                <InputText id="createdby" @bind-Value="TravelMapleUser.CreatedBy" class="form-control" /> 
+                <ValidationMessage For="() => TravelMapleUser.CreatedBy" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="updatedby" class="form-label">UpdatedBy:</label> 
+                <InputText id="updatedby" @bind-Value="TravelMapleUser.UpdatedBy" class="form-control" /> 
+                <ValidationMessage For="() => TravelMapleUser.UpdatedBy" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/travelmapleusers">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private TravelMapleUser TravelMapleUser { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddTravelMapleUser()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.TravelMapleUser.Add(TravelMapleUser);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/travelmapleusers");
+    }
+}

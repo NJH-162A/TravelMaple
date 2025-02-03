@@ -1,0 +1,109 @@
+﻿@page "/transportmodes/edit"
+@using Microsoft.EntityFrameworkCore
+@using TravelMaple.Domain
+@inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>TransportMode</h2>
+<hr />
+@if (TransportMode is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="TransportMode" OnValidSubmit="UpdateTransportMode" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="TransportMode.Id" value="@TransportMode.Id" />
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="TransportMode.Name" class="form-control" />
+                    <ValidationMessage For="() => TransportMode.Name" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="datecreated" class="form-label">DateCreated:</label>
+                    <InputDate id="datecreated" @bind-Value="TransportMode.DateCreated" class="form-control" />
+                    <ValidationMessage For="() => TransportMode.DateCreated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dateupdated" class="form-label">DateUpdated:</label>
+                    <InputDate id="dateupdated" @bind-Value="TransportMode.DateUpdated" class="form-control" />
+                    <ValidationMessage For="() => TransportMode.DateUpdated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="createdby" class="form-label">CreatedBy:</label>
+                    <InputText id="createdby" @bind-Value="TransportMode.CreatedBy" class="form-control" />
+                    <ValidationMessage For="() => TransportMode.CreatedBy" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="updatedby" class="form-label">UpdatedBy:</label>
+                    <InputText id="updatedby" @bind-Value="TransportMode.UpdatedBy" class="form-control" />
+                    <ValidationMessage For="() => TransportMode.UpdatedBy" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/transportmodes">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private TransportMode? TransportMode { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        TransportMode ??= await context.TransportMode.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (TransportMode is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateTransportMode()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(TransportMode!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!TransportModeExists(TransportMode!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/transportmodes");
+    }
+
+    private bool TransportModeExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.TransportMode.Any(e => e.Id == id);
+    }
+}

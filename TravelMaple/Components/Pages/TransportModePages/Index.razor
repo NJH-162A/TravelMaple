@@ -1,0 +1,40 @@
+﻿@page "/transportmodes"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using TravelMaple.Domain
+@using TravelMaple.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="transportmodes/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.TransportMode">
+    <PropertyColumn Property="transportmode => transportmode.Name" />
+    <PropertyColumn Property="transportmode => transportmode.DateCreated" />
+    <PropertyColumn Property="transportmode => transportmode.DateUpdated" />
+    <PropertyColumn Property="transportmode => transportmode.CreatedBy" />
+    <PropertyColumn Property="transportmode => transportmode.UpdatedBy" />
+
+    <TemplateColumn Context="transportmode">
+        <a href="@($"transportmodes/edit?id={transportmode.Id}")">Edit</a> |
+        <a href="@($"transportmodes/details?id={transportmode.Id}")">Details</a> |
+        <a href="@($"transportmodes/delete?id={transportmode.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private TravelMapleContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
