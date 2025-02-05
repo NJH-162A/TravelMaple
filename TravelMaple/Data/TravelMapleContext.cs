@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TravelMaple.Domain;
 using TravelMaple.Configurations.Entities;
+using TravelMaple.Data;
 
 namespace TravelMaple.Data
 {
-    public class TravelMapleContext : DbContext
+    public class TravelMapleContext(DbContextOptions<TravelMapleContext> options) : IdentityDbContext<TravelMapleUserReal>(options)
     {
-        public TravelMapleContext (DbContextOptions<TravelMapleContext> options)
-            : base(options)
-        {
-        }
         public DbSet<TravelMaple.Domain.TravelMapleUser> TravelMapleUser { get; set; } = default!;
         public DbSet<TravelMaple.Domain.Booking> Booking { get; set; } = default!;
         public DbSet<TravelMaple.Domain.Trip> Trip { get; set; } = default!;
