@@ -34,13 +34,13 @@ else
                 </div>
                 <div class="mb-3">
                     <label for="datecreated" class="form-label">DateCreated:</label>
-                    <InputDate id="datecreated" @bind-Value="Trip.DateCreated" class="form-control" />
-                    <ValidationMessage For="() => Trip.DateCreated" class="text-danger" />
+                    <InputDate id="datecreated" @bind-Value="Trip.StartDate" class="form-control" />
+                    <ValidationMessage For="() => Trip.StartDate" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="dateupdated" class="form-label">DateUpdated:</label>
-                    <InputDate id="dateupdated" @bind-Value="Trip.DateUpdated" class="form-control" />
-                    <ValidationMessage For="() => Trip.DateUpdated" class="text-danger" />
+                    <InputDate id="dateupdated" @bind-Value="Trip.EndDate" class="form-control" />
+                    <ValidationMessage For="() => Trip.EndDate" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="createdby" class="form-label">CreatedBy:</label>

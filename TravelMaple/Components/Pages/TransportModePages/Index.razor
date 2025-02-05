@@ -16,10 +16,6 @@
 
 <QuickGrid Class="table" Items="context.TransportMode">
     <PropertyColumn Property="transportmode => transportmode.Name" />
-    <PropertyColumn Property="transportmode => transportmode.DateCreated" />
-    <PropertyColumn Property="transportmode => transportmode.DateUpdated" />
-    <PropertyColumn Property="transportmode => transportmode.CreatedBy" />
-    <PropertyColumn Property="transportmode => transportmode.UpdatedBy" />
 
     <TemplateColumn Context="transportmode">
         <a href="@($"transportmodes/edit?id={transportmode.Id}")">Edit</a> |

@@ -16,35 +16,41 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert"/>       
             <div class="mb-3">
-                <label for="duration" class="form-label">Duration:</label> 
+                <label for="duration" class="form-label">Duration (days):</label> 
                 <InputNumber id="duration" @bind-Value="Trip.Duration" class="form-control" /> 
                 <ValidationMessage For="() => Trip.Duration" class="text-danger" /> 
+            </div>            
+            <div class="mb-3">
+                <label for="duration" class="form-label">Estimated Budget:</label>
+                <InputNumber id="duration" @bind-Value="Trip.EstBudget" class="form-control" />
+                <ValidationMessage For="() => Trip.EstBudget" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="datecreated" class="form-label">Start Date:</label> 
+                <InputDate id="datecreated" @bind-Value="Trip.StartDate" class="form-control" /> 
+                <ValidationMessage For="() => Trip.StartDate" class="text-danger" /> 
             </div>        
             <div class="mb-3">
-                <label for="makeid" class="form-label">MakeId:</label> 
-                <InputNumber id="makeid" @bind-Value="Trip.MakeId" class="form-control" /> 
-                <ValidationMessage For="() => Trip.MakeId" class="text-danger" /> 
-            </div>        
-            <div class="mb-3">
-                <label for="datecreated" class="form-label">DateCreated:</label> 
-                <InputDate id="datecreated" @bind-Value="Trip.DateCreated" class="form-control" /> 
-                <ValidationMessage For="() => Trip.DateCreated" class="text-danger" /> 
-            </div>        
-            <div class="mb-3">
-                <label for="dateupdated" class="form-label">DateUpdated:</label> 
-                <InputDate id="dateupdated" @bind-Value="Trip.DateUpdated" class="form-control" /> 
-                <ValidationMessage For="() => Trip.DateUpdated" class="text-danger" /> 
+                <label for="dateupdated" class="form-label">End Date:</label> 
+                <InputDate id="dateupdated" @bind-Value="Trip.EndDate" class="form-control" /> 
+                <ValidationMessage For="() => Trip.EndDate" class="text-danger" /> 
             </div>        
             <div class="mb-3">
                 <label for="createdby" class="form-label">CreatedBy:</label> 
                 <InputText id="createdby" @bind-Value="Trip.CreatedBy" class="form-control" /> 
                 <ValidationMessage For="() => Trip.CreatedBy" class="text-danger" /> 
-            </div>        
-            <div class="mb-3">
-                <label for="updatedby" class="form-label">UpdatedBy:</label> 
-                <InputText id="updatedby" @bind-Value="Trip.UpdatedBy" class="form-control" /> 
-                <ValidationMessage For="() => Trip.UpdatedBy" class="text-danger" /> 
-            </div>        
+            </div>      
+                       <div class="mb-3">
+            <label for="aim" class="form-label">Travel Aim:</label>
+                <select id="travelAim" @bind-Value="Trip.Aim" class="form-control">
+                <option value="">Select an aim</option> <!-- Default option -->
+                <option value="Relaxation">Relaxation</option>
+                <option value="Exploration">Exploration</option>
+                <option value="Adventure">Adventure</option>
+            </select>
+            <ValidationMessage For="() => Trip.Aim" class="text-danger" />
+        </div> 
+                
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
     </div>

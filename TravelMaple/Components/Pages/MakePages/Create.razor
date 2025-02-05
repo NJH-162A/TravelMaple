@@ -22,13 +22,13 @@
             </div>        
             <div class="mb-3">
                 <label for="datecreated" class="form-label">DateCreated:</label> 
-                <InputDate id="datecreated" @bind-Value="Make.DateCreated" class="form-control" /> 
-                <ValidationMessage For="() => Make.DateCreated" class="text-danger" /> 
+                <InputDate id="datecreated" @bind-Value="Make.StartDate" class="form-control" /> 
+                <ValidationMessage For="() => Make.StartDate" class="text-danger" /> 
             </div>        
             <div class="mb-3">
                 <label for="dateupdated" class="form-label">DateUpdated:</label> 
-                <InputDate id="dateupdated" @bind-Value="Make.DateUpdated" class="form-control" /> 
-                <ValidationMessage For="() => Make.DateUpdated" class="text-danger" /> 
+                <InputDate id="dateupdated" @bind-Value="Make.EndDate" class="form-control" /> 
+                <ValidationMessage For="() => Make.EndDate" class="text-danger" /> 
             </div>        
             <div class="mb-3">
                 <label for="createdby" class="form-label">CreatedBy:</label> 

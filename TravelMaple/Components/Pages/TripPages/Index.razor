@@ -6,6 +6,8 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
 
+@attribute [Authorize(Roles = "Administrator, User")]
+
 <PageTitle>Index</PageTitle>
 
 <h1>Index</h1>
@@ -16,11 +18,12 @@
 
 <QuickGrid Class="table" Items="context.Trip">
     <PropertyColumn Property="trip => trip.Duration" />
-    <PropertyColumn Property="trip => trip.MakeId" />
-    <PropertyColumn Property="trip => trip.DateCreated" />
-    <PropertyColumn Property="trip => trip.DateUpdated" />
-    <PropertyColumn Property="trip => trip.CreatedBy" />
-    <PropertyColumn Property="trip => trip.UpdatedBy" />
+    <PropertyColumn Property="trip => trip.Destination" />
+    <PropertyColumn Property="trip => trip.EstBudget" />
+    <PropertyColumn Property="trip => trip.StartDate" />
+    <PropertyColumn Property="trip => trip.EndDate" />
+    <PropertyColumn Property="trip => trip.Aim" />
+
 
     <TemplateColumn Context="trip">
         <a href="@($"trips/edit?id={trip.Id}")">Edit</a> |

@@ -14,8 +14,8 @@ namespace TravelMaple.Configurations.Entities
             {
                 Id = 1,
                 Name = "Hotel",
-                DateCreated = DateTime.Now,
-                DateUpdated = DateTime.Now,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
                 CreatedBy = "System",
                 UpdatedBy = "System"
             },
@@ -23,8 +23,8 @@ namespace TravelMaple.Configurations.Entities
             {
                 Id = 2,
                 Name = "Resort",
-                DateCreated = DateTime.Now,
-                DateUpdated = DateTime.Now,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
                 CreatedBy = "System",
                 UpdatedBy = "System"
             },
@@ -32,8 +32,8 @@ namespace TravelMaple.Configurations.Entities
             {
                 Id = 3,
                 Name = "B&B",
-                DateCreated = DateTime.Now,
-                DateUpdated = DateTime.Now,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
                 CreatedBy = "System",
                 UpdatedBy = "System"
             }

@@ -16,10 +16,6 @@
 
 <QuickGrid Class="table" Items="context.Make">
     <PropertyColumn Property="make => make.Name" />
-    <PropertyColumn Property="make => make.DateCreated" />
-    <PropertyColumn Property="make => make.DateUpdated" />
-    <PropertyColumn Property="make => make.CreatedBy" />
-    <PropertyColumn Property="make => make.UpdatedBy" />
 
     <TemplateColumn Context="make">
         <a href="@($"makes/edit?id={make.Id}")">Edit</a> |
