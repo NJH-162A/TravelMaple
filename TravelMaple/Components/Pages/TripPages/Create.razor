@@ -14,43 +14,48 @@
     <div class="col-md-4">
         <EditForm method="post" Model="Trip" OnValidSubmit="AddTrip" FormName="create" Enhance>
             <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert"/>       
+            <ValidationSummary class="text-danger" role="alert"/>      
             <div class="mb-3">
-                <label for="duration" class="form-label">Duration (days):</label> 
-                <InputNumber id="duration" @bind-Value="Trip.Duration" class="form-control" /> 
-                <ValidationMessage For="() => Trip.Duration" class="text-danger" /> 
-            </div>            
+                <label for="name" class="form-label">Name:</label>
+                <InputText id="name" @bind-Value="Trip.Name" class="form-control" />
+                <ValidationMessage For="() => Trip.Name" class="text-danger" />
+            </div>
             <div class="mb-3">
-                <label for="duration" class="form-label">Estimated Budget:</label>
-                <InputNumber id="duration" @bind-Value="Trip.EstBudget" class="form-control" />
+                <label for="duration" class="form-label">Duration:</label>
+                <InputNumber id="duration" @bind-Value="Trip.Duration" class="form-control" />
+                <ValidationMessage For="() => Trip.Duration" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="destination" class="form-label">Destination:</label>
+                <InputText id="destination" @bind-Value="Trip.Destination" class="form-control" />
+                <ValidationMessage For="() => Trip.Destination" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="estbudget" class="form-label">Estimated Budget:</label>
+                <InputNumber id="estbudget" @bind-Value="Trip.EstBudget" class="form-control" />
                 <ValidationMessage For="() => Trip.EstBudget" class="text-danger" />
             </div>
             <div class="mb-3">
-                <label for="datecreated" class="form-label">Start Date:</label> 
-                <InputDate id="datecreated" @bind-Value="Trip.StartDate" class="form-control" /> 
-                <ValidationMessage For="() => Trip.StartDate" class="text-danger" /> 
-            </div>        
+                <label for="startdate" class="form-label">Start Date:</label>
+                <InputDate id="startdate" @bind-Value="Trip.StartDate" class="form-control" />
+                <ValidationMessage For="() => Trip.StartDate" class="text-danger" />
+            </div>
             <div class="mb-3">
-                <label for="dateupdated" class="form-label">End Date:</label> 
-                <InputDate id="dateupdated" @bind-Value="Trip.EndDate" class="form-control" /> 
-                <ValidationMessage For="() => Trip.EndDate" class="text-danger" /> 
-            </div>        
+                <label for="enddate" class="form-label">End Date:</label>
+                <InputDate id="enddate" @bind-Value="Trip.EndDate" class="form-control" />
+                <ValidationMessage For="() => Trip.EndDate" class="text-danger" />
+            </div>
             <div class="mb-3">
-                <label for="createdby" class="form-label">CreatedBy:</label> 
-                <InputText id="createdby" @bind-Value="Trip.CreatedBy" class="form-control" /> 
-                <ValidationMessage For="() => Trip.CreatedBy" class="text-danger" /> 
-            </div>      
-                       <div class="mb-3">
-            <label for="aim" class="form-label">Travel Aim:</label>
-                <select id="travelAim" @bind-Value="Trip.Aim" class="form-control">
-                <option value="">Select an aim</option> <!-- Default option -->
-                <option value="Relaxation">Relaxation</option>
-                <option value="Exploration">Exploration</option>
-                <option value="Adventure">Adventure</option>
-            </select>
-            <ValidationMessage For="() => Trip.Aim" class="text-danger" />
-        </div> 
-                
+                <label for="aim" class="form-label">Aim:</label>
+                <InputSelect id="aim" @bind-Value="Trip.Aim" class="form-control" >
+                    <option value="">Select the aim of your trip</option>
+                    <option value="Relaxation">Relaxation</option>
+                    <option value="Exploration">Exploration</option>
+                    <option value="Adventure">Adventure</option>
+                </InputSelect>
+                <ValidationMessage For="() => Trip.Aim" class="text-danger" />
+            </div> 
+
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
     </div>

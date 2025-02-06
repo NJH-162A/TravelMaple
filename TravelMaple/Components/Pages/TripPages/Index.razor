@@ -10,13 +10,14 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Index</h1>
+<h1>Trip Summaries</h1>
 
 <p>
-    <a href="trips/create">Create New</a>
+    <a href="trips/create">Create New Trip</a>
 </p>
 
 <QuickGrid Class="table" Items="context.Trip">
+    <PropertyColumn Property="trip => trip.Name" />
     <PropertyColumn Property="trip => trip.Duration" />
     <PropertyColumn Property="trip => trip.Destination" />
     <PropertyColumn Property="trip => trip.EstBudget" />

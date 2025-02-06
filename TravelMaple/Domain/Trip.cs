@@ -9,6 +9,7 @@
         public string? Destination { get; set; }
         public string? Aim { get; set; }
         public int EstBudget { get; set; }
+        public string? Name { get; set; }
 
     }
 }

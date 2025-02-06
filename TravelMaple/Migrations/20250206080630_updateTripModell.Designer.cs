@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelMaple.Data;
 
@@ -11,9 +12,11 @@ using TravelMaple.Data;
 namespace TravelMaple.Migrations
 {
     [DbContext(typeof(TravelMapleContext))]
-    partial class TravelMapleContextModelSnapshot : ModelSnapshot
+    [Migration("20250206080630_updateTripModell")]
+    partial class updateTripModell
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

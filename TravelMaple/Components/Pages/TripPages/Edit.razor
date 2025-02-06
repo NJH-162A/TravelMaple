@@ -23,34 +23,34 @@ else
                 <ValidationSummary role="alert"/>
                 <input type="hidden" name="Trip.Id" value="@Trip.Id" />
                 <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="Trip.Name" class="form-control" />
+                    <ValidationMessage For="() => Trip.Name" class="text-danger" />
+                </div>
+                <div class="mb-3">
                     <label for="duration" class="form-label">Duration:</label>
                     <InputNumber id="duration" @bind-Value="Trip.Duration" class="form-control" />
                     <ValidationMessage For="() => Trip.Duration" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="makeid" class="form-label">MakeId:</label>
-                    <InputNumber id="makeid" @bind-Value="Trip.MakeId" class="form-control" />
-                    <ValidationMessage For="() => Trip.MakeId" class="text-danger" />
+                    <label for="destination" class="form-label">Destination:</label>
+                    <InputText id="destination" @bind-Value="Trip.Destination" class="form-control" />
+                    <ValidationMessage For="() => Trip.Destination" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="datecreated" class="form-label">DateCreated:</label>
-                    <InputDate id="datecreated" @bind-Value="Trip.StartDate" class="form-control" />
+                    <label for="estbudget" class="form-label">Estimated Budget:</label>
+                    <InputNumber id="estbudget" @bind-Value="Trip.EstBudget" class="form-control" />
+                    <ValidationMessage For="() => Trip.EstBudget" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="startdate" class="form-label">Start Date:</label>
+                    <InputDate id="startdate" @bind-Value="Trip.StartDate" class="form-control" />
                     <ValidationMessage For="() => Trip.StartDate" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="dateupdated" class="form-label">DateUpdated:</label>
-                    <InputDate id="dateupdated" @bind-Value="Trip.EndDate" class="form-control" />
+                    <label for="enddate" class="form-label">End Date:</label>
+                    <InputDate id="enddate" @bind-Value="Trip.EndDate" class="form-control" />
                     <ValidationMessage For="() => Trip.EndDate" class="text-danger" />
-                </div>
-                <div class="mb-3">
-                    <label for="createdby" class="form-label">CreatedBy:</label>
-                    <InputText id="createdby" @bind-Value="Trip.CreatedBy" class="form-control" />
-                    <ValidationMessage For="() => Trip.CreatedBy" class="text-danger" />
-                </div>
-                <div class="mb-3">
-                    <label for="updatedby" class="form-label">UpdatedBy:</label>
-                    <InputText id="updatedby" @bind-Value="Trip.UpdatedBy" class="form-control" />
-                    <ValidationMessage For="() => Trip.UpdatedBy" class="text-danger" />
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>
