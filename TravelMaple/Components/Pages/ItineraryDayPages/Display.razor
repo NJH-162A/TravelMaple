@@ -1,0 +1,28 @@
+﻿@page "/itineraryday/list/{TripId:int}"
+@using Microsoft.EntityFrameworkCore
+@using TravelMaple.Domain
+@using TravelMaple.Data
+@inject IDbContextFactory<TravelMapleContext> DbFactory
+
+<h2>Itinerary for @trip?.Name</h2>
+
+@if (trip != null)
+{
+    <p>This is where you'll display the itinerary details for @trip.Name</p>
+}
+
+@code {
+    [Parameter]
+    public int TripId { get; set; }
+
+    private TravelMapleContext context = default!;
+    private Trip? trip;
+
+    protected override async Task OnInitializedAsync()
+    {
+        context = await DbFactory.CreateDbContextAsync();
+        trip = await context.Trip.FirstOrDefaultAsync(t => t.Id == TripId);
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

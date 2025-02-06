@@ -12,6 +12,7 @@ namespace TravelMaple.Data
         public DbSet<TravelMaple.Domain.Trip> Trip { get; set; } = default!;
         public DbSet<TravelMaple.Domain.Make> Make { get; set; } = default!;
         public DbSet<TravelMaple.Domain.TransportMode> TransportMode { get; set; } = default!;
+        public DbSet<TravelMaple.Domain.ItineraryDay> ItineraryDay { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

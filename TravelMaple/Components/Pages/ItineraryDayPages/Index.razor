@@ -1,0 +1,38 @@
+﻿@page "/itinerarydays"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using TravelMaple.Domain
+@using TravelMaple.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="itinerarydays/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.ItineraryDay">
+    <PropertyColumn Property="itineraryday => itineraryday.DayNumber" />
+    <PropertyColumn Property="itineraryday => itineraryday.TripId" />
+    <PropertyColumn Property="itineraryday => itineraryday.Date" />
+
+    <TemplateColumn Context="itineraryday">
+        <a href="@($"itinerarydays/edit?id={itineraryday.Id}")">Edit</a> |
+        <a href="@($"itinerarydays/details?id={itineraryday.Id}")">Details</a> |
+        <a href="@($"itinerarydays/delete?id={itineraryday.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private TravelMapleContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

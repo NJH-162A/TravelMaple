@@ -1,0 +1,50 @@
+﻿@page "/itinerarydays/details"
+@using Microsoft.EntityFrameworkCore
+@using TravelMaple.Domain
+@inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>ItineraryDay</h2>
+    <hr />
+    @if (itineraryday is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">DayNumber</dt>
+            <dd class="col-sm-10">@itineraryday.DayNumber</dd>
+            <dt class="col-sm-2">TripId</dt>
+            <dd class="col-sm-10">@itineraryday.TripId</dd>
+            <dt class="col-sm-2">Date</dt>
+            <dd class="col-sm-10">@itineraryday.Date</dd>
+        </dl>
+        <div>
+            <a href="@($"/itinerarydays/edit?id={itineraryday.Id}")">Edit</a> |
+            <a href="@($"/itinerarydays")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private ItineraryDay? itineraryday;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        itineraryday = await context.ItineraryDay.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (itineraryday is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

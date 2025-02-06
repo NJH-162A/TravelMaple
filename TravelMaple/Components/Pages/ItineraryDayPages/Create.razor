@@ -1,0 +1,54 @@
+﻿@page "/itinerarydays/create"
+@using Microsoft.EntityFrameworkCore
+@using TravelMaple.Domain
+@inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>ItineraryDay</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="ItineraryDay" OnValidSubmit="AddItineraryDay" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="daynumber" class="form-label">DayNumber:</label> 
+                <InputNumber id="daynumber" @bind-Value="ItineraryDay.DayNumber" class="form-control" /> 
+                <ValidationMessage For="() => ItineraryDay.DayNumber" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="tripid" class="form-label">TripId:</label> 
+                <InputNumber id="tripid" @bind-Value="ItineraryDay.TripId" class="form-control" /> 
+                <ValidationMessage For="() => ItineraryDay.TripId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="date" class="form-label">Date:</label> 
+                <InputDate id="date" @bind-Value="ItineraryDay.Date" class="form-control" /> 
+                <ValidationMessage For="() => ItineraryDay.Date" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/itinerarydays">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private ItineraryDay ItineraryDay { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddItineraryDay()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.ItineraryDay.Add(ItineraryDay);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/itinerarydays");
+    }
+}

@@ -1,0 +1,43 @@
+﻿@page "/itineraryday/list"
+@using Microsoft.EntityFrameworkCore
+@using TravelMaple.Domain
+@using TravelMaple.Data
+@inject IDbContextFactory<TravelMapleContext> DbFactory
+
+<h1>Itinerary List</h1>
+
+<div class="search-box">
+    <input type="text" @bind="searchString" @bind:event="oninput" @onkeyup="PerformSearch" placeholder="Search trips..." />
+    
+</div>
+
+<ul>
+    @foreach (var trip in filteredTrips)
+    {
+        <li><a href="@($"itineraryday/list/{trip.Id}")">@trip.Name</a></li>
+    }
+</ul>
+
+@code {
+    private TravelMapleContext context = default!;
+    private List<Trip> trips = new List<Trip>();
+    private List<Trip> filteredTrips = new List<Trip>();
+    private string searchString = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        context = await DbFactory.CreateDbContextAsync();
+        trips = await context.Trip.ToListAsync();
+        filteredTrips = trips;
+    }
+
+    private void PerformSearch()
+    {
+        filteredTrips = trips
+            .Where(t => t.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+        StateHasChanged();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

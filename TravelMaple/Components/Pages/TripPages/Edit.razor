@@ -52,6 +52,16 @@ else
                     <InputDate id="enddate" @bind-Value="Trip.EndDate" class="form-control" />
                     <ValidationMessage For="() => Trip.EndDate" class="text-danger" />
                 </div>
+                <div class="mb-3">
+                    <label for="aim" class="form-label">Aim:</label>
+                    <InputSelect id="aim" @bind-Value="Trip.Aim" class="form-control">
+                        <option value="">Select the aim of your trip</option>
+                        <option value="Relaxation">Relaxation</option>
+                        <option value="Exploration">Exploration</option>
+                        <option value="Adventure">Adventure</option>
+                    </InputSelect>
+                    <ValidationMessage For="() => Trip.Aim" class="text-danger" />
+                </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>
         </div>

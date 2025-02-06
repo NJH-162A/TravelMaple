@@ -1,0 +1,99 @@
+﻿@page "/itinerarydays/edit"
+@using Microsoft.EntityFrameworkCore
+@using TravelMaple.Domain
+@inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>ItineraryDay</h2>
+<hr />
+@if (ItineraryDay is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="ItineraryDay" OnValidSubmit="UpdateItineraryDay" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="ItineraryDay.Id" value="@ItineraryDay.Id" />
+                <div class="mb-3">
+                    <label for="daynumber" class="form-label">DayNumber:</label>
+                    <InputNumber id="daynumber" @bind-Value="ItineraryDay.DayNumber" class="form-control" />
+                    <ValidationMessage For="() => ItineraryDay.DayNumber" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="tripid" class="form-label">TripId:</label>
+                    <InputNumber id="tripid" @bind-Value="ItineraryDay.TripId" class="form-control" />
+                    <ValidationMessage For="() => ItineraryDay.TripId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date:</label>
+                    <InputDate id="date" @bind-Value="ItineraryDay.Date" class="form-control" />
+                    <ValidationMessage For="() => ItineraryDay.Date" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/itinerarydays">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private ItineraryDay? ItineraryDay { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        ItineraryDay ??= await context.ItineraryDay.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (ItineraryDay is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateItineraryDay()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(ItineraryDay!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!ItineraryDayExists(ItineraryDay!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/itinerarydays");
+    }
+
+    private bool ItineraryDayExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.ItineraryDay.Any(e => e.Id == id);
+    }
+}

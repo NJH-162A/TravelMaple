@@ -5,10 +5,13 @@ using TravelMaple.Data;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using TravelMaple.Components.Account;
+using TravelMaple.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextFactory<TravelMapleContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TravelMapleContext") ?? throw new InvalidOperationException("Connection string 'TravelMapleContext' not found.")));
+
+builder.Services.AddScoped<ItineraryImple, ItineraryGen>();
 
 builder.Services.AddQuickGridEntityFrameworkAdapter();
 
