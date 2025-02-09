@@ -12,8 +12,8 @@ using TravelMaple.Data;
 namespace TravelMaple.Migrations
 {
     [DbContext(typeof(TravelMapleContext))]
-    [Migration("20250209173111_SeedUserNew")]
-    partial class SeedUserNew
+    [Migration("20250209173505_SeedRoleNew")]
+    partial class SeedRoleNew
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -439,7 +439,7 @@ namespace TravelMaple.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8d0c85b4-e490-45a4-ac98-d13d7bc39c49",
+                            ConcurrencyStamp = "e226d5ef-e42e-4e76-b88f-ad17956a3130",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -447,9 +447,9 @@ namespace TravelMaple.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOqTdCPacObgbLJA8xUjdEPY3N+cBMIKTTVEkCRHXRGkMO/9cSYE8CGfVcjun7isSw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEN1GR3HqxCSpwgHkR5KfGgaKG6uKsZhdb8n9uX1P5V0ktJguuSiGwn/NhPtxhmZqMA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cc7366b1-6589-44d9-99d4-080d3b15374f",
+                            SecurityStamp = "a9f51fd3-7452-4540-b0ba-422359261861",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });

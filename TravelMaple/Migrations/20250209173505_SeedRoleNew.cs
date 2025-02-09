@@ -6,27 +6,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TravelMaple.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedUserNew : Migration
+    public partial class SeedRoleNew : Migration
     {
         /// <inheritdoc />
 
-protected override void Up(MigrationBuilder migrationBuilder)
-    {
-        var hasher = new PasswordHasher<IdentityUser>();
-        string passwordHash = hasher.HashPassword(null, "P@ssword1");
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            var hasher = new PasswordHasher<IdentityUser>();
+            string passwordHash = hasher.HashPassword(null, "P@ssword1");
 
-        migrationBuilder.InsertData(
-            table: "AspNetRoles",
-            columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
-            values: new object[,]
-            {
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+                values: new object[,]
+                {
             { "ad2bcf0c-20db-474f-8407-5a6b159518ba", "Administrator", "ADMINISTRATOR", Guid.NewGuid().ToString() },
             { "bd2bcf0c-20db-474f-8407-5a6b159518bb", "User", "USER", Guid.NewGuid().ToString() }
-            });
+                });
 
-        migrationBuilder.InsertData(
-            table: "AspNetUsers",
-            columns: new[] {
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] {
             "Id",
             "UserName",
             "NormalizedUserName",
@@ -44,8 +44,8 @@ protected override void Up(MigrationBuilder migrationBuilder)
             "AccessFailedCount",
             "FirstName",
             "LastName"
-            },
-            values: new object[] {
+                },
+                values: new object[] {
             "3781efa7-66dc-47f0-860f-e506d04102e4",
             "admin@localhost.com",
             "ADMIN@LOCALHOST.COM",
@@ -63,21 +63,21 @@ protected override void Up(MigrationBuilder migrationBuilder)
             0,
             "Admin",
             "User"
-            });
+                });
 
-        migrationBuilder.InsertData(
-            table: "AspNetUserRoles",
-            columns: new[] { "UserId", "RoleId" },
-            values: new object[] {
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] {
             "3781efa7-66dc-47f0-860f-e506d04102e4",
             "ad2bcf0c-20db-474f-8407-5a6b159518ba"
-            });
-    }
+                });
+        }
 
 
 
-    /// <inheritdoc />
-    protected override void Down(MigrationBuilder migrationBuilder)
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DeleteData(
             table: "AspNetUserRoles",
