@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TravelMaple.Configurations.Entities;
 using TravelMaple.Data;
+using TravelMaple.Domain;
 
 namespace TravelMaple.Data
 {
@@ -21,5 +22,6 @@ namespace TravelMaple.Data
             builder.ApplyConfiguration(new MakeSeed());
             builder.ApplyConfiguration(new TransportModeSeed());
         }
+        public DbSet<TravelMaple.Domain.Feedback> Feedback { get; set; } = default!;
     }
 }

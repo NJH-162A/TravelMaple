@@ -1,0 +1,39 @@
+﻿@page "/feedbacks"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using TravelMaple.Domain
+@using TravelMaple.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
+
+@attribute [Authorize(Roles = "Administrator")]
+
+<PageTitle>Index</PageTitle>
+
+<h1>User Feedbacks</h1>
+
+<QuickGrid Class="table" Items="context.Feedback">
+    <PropertyColumn Property="feedback => feedback.Rating" />
+    <PropertyColumn Property="feedback => feedback.Reason" />
+    <PropertyColumn Property="feedback => feedback.DateCreated" />
+    <PropertyColumn Property="feedback => feedback.DateUpdated" />
+    <PropertyColumn Property="feedback => feedback.CreatedBy" />
+    <PropertyColumn Property="feedback => feedback.UpdatedBy" />
+
+    <TemplateColumn Context="feedback">
+        <a href="@($"feedbacks/edit?id={feedback.Id}")">Edit</a> |
+        <a href="@($"feedbacks/details?id={feedback.Id}")">Details</a> |
+        <a href="@($"feedbacks/delete?id={feedback.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private TravelMapleContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
