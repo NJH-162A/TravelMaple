@@ -16,12 +16,12 @@ namespace TravelMaple.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            
+
+            builder.ApplyConfiguration(new RoleSeed());
+            builder.ApplyConfiguration(new UserRoleSeed());
+            builder.ApplyConfiguration(new UserSeed());
         }
         public DbSet<TravelMaple.Domain.Feedback> Feedback { get; set; } = default!;
     }
 }
 
-// builder.ApplyConfiguration(new RoleSeed());
-//builder.ApplyConfiguration(new UserRoleSeed());
-//builder.ApplyConfiguration(new UserSeed());

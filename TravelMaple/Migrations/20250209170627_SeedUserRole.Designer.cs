@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelMaple.Data;
 
@@ -11,9 +12,11 @@ using TravelMaple.Data;
 namespace TravelMaple.Migrations
 {
     [DbContext(typeof(TravelMapleContext))]
-    partial class TravelMapleContextModelSnapshot : ModelSnapshot
+    [Migration("20250209170627_SeedUserRole")]
+    partial class SeedUserRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -436,7 +439,7 @@ namespace TravelMaple.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8d0c85b4-e490-45a4-ac98-d13d7bc39c49",
+                            ConcurrencyStamp = "8d87880d-1d0c-495b-a057-3330747b35ff",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -444,9 +447,9 @@ namespace TravelMaple.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOqTdCPacObgbLJA8xUjdEPY3N+cBMIKTTVEkCRHXRGkMO/9cSYE8CGfVcjun7isSw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDLx9VE412TxgvAZqwG76S/E13PAkzF1juXWpRNUuOcFT+VYZ8ERNmbcr9MulZHQBg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cc7366b1-6589-44d9-99d4-080d3b15374f",
+                            SecurityStamp = "bee22322-63c7-4ce3-bd8c-731bff357648",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });

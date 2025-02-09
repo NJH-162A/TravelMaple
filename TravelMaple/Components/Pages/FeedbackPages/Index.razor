@@ -5,6 +5,7 @@
 @using TravelMaple.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
+@inject NavigationManager NavigationManager
 
 @attribute [Authorize(Roles = "Administrator")]
 
@@ -30,10 +31,9 @@
 @code {
     private TravelMapleContext context = default!;
 
-    protected override void OnInitialized()
-    {
-        context = DbFactory.CreateDbContext();
-    }
+    @inject AuthenticationStateProvider authenticationStateProvider
+
+    
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
 
@@ -44,4 +44,17 @@
     private IQueryable<Feedback> FilteredBookings => isAdmin
     ? context.Feedback // Admins can see all bookings
     : context.Feedback.Where(e => e.CreatedBy == userId); // Regular users see only their own feedback???
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        // Extract user information
+        userId = user.FindFirst("userId")?.Value ?? string.Empty;
+        isAdmin = user.IsInRole("Administrator");
+
+        context = DbFactory.CreateDbContext();
+    }
+
 }
