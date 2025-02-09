@@ -45,16 +45,30 @@
                 <InputDate id="enddate" @bind-Value="Trip.EndDate" class="form-control" />
                 <ValidationMessage For="() => Trip.EndDate" class="text-danger" />
             </div>
+
             <div class="mb-3">
                 <label for="aim" class="form-label">Aim:</label>
                 <InputSelect id="aim" @bind-Value="Trip.Aim" class="form-control" >
-                    <option value="">Select the aim of your trip</option>
+                    <option value="">-- Select Aim --</option>
                     <option value="Relaxation">Relaxation</option>
                     <option value="Exploration">Exploration</option>
                     <option value="Adventure">Adventure</option>
                 </InputSelect>
                 <ValidationMessage For="() => Trip.Aim" class="text-danger" />
             </div> 
+
+
+            <div class="mb-3" hidden>
+                <label for="datecreated" class="form-label">Date Created:</label>
+                <InputDate id="datecreated" @bind-Value="Trip.DateCreated" class="form-control" />
+                <ValidationMessage For="() => Trip.DateCreated" class="text-danger" />
+            </div>
+            <div class="mb-3" hidden>
+                <label for="dateupdated" class="form-label">Date Updated:</label>
+                <InputDate id="dateupdated" @bind-Value="Trip.DateUpdated" class="form-control" />
+                <ValidationMessage For="() => Trip.DateUpdated" class="text-danger" />
+            </div>
+
 
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
@@ -73,6 +87,12 @@
     private async Task AddTrip()
     {
         using var context = DbFactory.CreateDbContext();
+        Trip.CreatedBy = userId;
+        Trip.UpdatedBy = userId;
+        //Set the DateCreated and DateUpdated fields to the current date and time.
+        Trip.DateCreated = DateTime.Now;
+        Trip.DateUpdated = DateTime.Now;
+
         context.Trip.Add(Trip);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/trips");
@@ -80,10 +100,19 @@
 
 
 
-
-
-
-
-
-   
+    private string userId = "System";
+    //Inject the AuthenticationStateProvider to get the user id.
+    @inject AuthenticationStateProvider authenticationStateProvider
+    //Override the OnInitialized method to get the user id.
+    protected override async void OnInitialized()
+    {
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        // Get the userId claim
+        var userIdClaim = user.FindFirst("userId");
+        if (userIdClaim != null)
+        {
+            userId = userIdClaim.Value;
+        }
+    }
 }

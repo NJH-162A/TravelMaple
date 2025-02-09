@@ -36,4 +36,12 @@
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
+
+    private string userId = string.Empty;
+    private bool isAdmin = false;
+    @inject AuthenticationStateProvider authenticationStateProvider
+    // Filter bookings by userId
+    private IQueryable<Feedback> FilteredBookings => isAdmin
+    ? context.Feedback // Admins can see all bookings
+    : context.Feedback.Where(e => e.CreatedBy == userId); // Regular users see only their own feedback???
 }

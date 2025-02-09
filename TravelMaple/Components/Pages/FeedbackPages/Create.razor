@@ -16,31 +16,38 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
-                <label for="rating" class="form-label">Rating:</label> 
-                <InputText id="rating" @bind-Value="Feedback.Rating" class="form-control" /> 
-                <ValidationMessage For="() => Feedback.Rating" class="text-danger" /> 
-            </div>        
+                <label for="rating" class="form-label">Rating:</label>
+                <InputSelect id="rating" @bind-Value="Feedback.Rating" class="form-control">
+                    <option value="">-- Select Rating --</option>
+                    <option value="1">Poor</option>
+                    <option value="2">Below Average</option>
+                    <option value="3">Fair</option>
+                    <option value="4">Very Good</option>
+                    <option value="5">Excellent</option>
+                </InputSelect>
+                <ValidationMessage For="() => Feedback.Rating" class="text-danger" />
+            </div>
             <div class="mb-3">
                 <label for="reason" class="form-label">Reason:</label> 
                 <InputText id="reason" @bind-Value="Feedback.Reason" class="form-control" /> 
                 <ValidationMessage For="() => Feedback.Reason" class="text-danger" /> 
             </div>        
-            <div class="mb-3">
+            <div class="mb-3" hidden>
                 <label for="datecreated" class="form-label">DateCreated:</label> 
                 <InputDate id="datecreated" @bind-Value="Feedback.DateCreated" class="form-control" /> 
                 <ValidationMessage For="() => Feedback.DateCreated" class="text-danger" /> 
             </div>        
-            <div class="mb-3">
+            <div class="mb-3" hidden>
                 <label for="dateupdated" class="form-label">DateUpdated:</label> 
                 <InputDate id="dateupdated" @bind-Value="Feedback.DateUpdated" class="form-control" /> 
                 <ValidationMessage For="() => Feedback.DateUpdated" class="text-danger" /> 
             </div>        
-            <div class="mb-3">
+            <div class="mb-3" hidden>
                 <label for="createdby" class="form-label">CreatedBy:</label> 
                 <InputText id="createdby" @bind-Value="Feedback.CreatedBy" class="form-control" /> 
                 <ValidationMessage For="() => Feedback.CreatedBy" class="text-danger" /> 
             </div>        
-            <div class="mb-3">
+            <div class="mb-3" hidden>
                 <label for="updatedby" class="form-label">UpdatedBy:</label> 
                 <InputText id="updatedby" @bind-Value="Feedback.UpdatedBy" class="form-control" /> 
                 <ValidationMessage For="() => Feedback.UpdatedBy" class="text-danger" /> 
@@ -62,8 +69,31 @@
     private async Task AddFeedback()
     {
         using var context = DbFactory.CreateDbContext();
+        Feedback.CreatedBy = userId;
+        Feedback.UpdatedBy = userId;
+        Feedback.DateCreated = DateTime.Now;
+        Feedback.DateUpdated = DateTime.Now;
         context.Feedback.Add(Feedback);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/feedbacks/created");
     }
+
+
+
+    private string userId = "System";
+    //Inject the AuthenticationStateProvider to get the user id.
+    @inject AuthenticationStateProvider authenticationStateProvider
+    //Override the OnInitialized method to get the user id.
+    protected override async void OnInitialized()
+    {
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        // Get the userId claim
+        var userIdClaim = user.FindFirst("userId");
+        if (userIdClaim != null)
+        {
+            userId = userIdClaim.Value;
+        }
+    }
+
 }

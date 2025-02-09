@@ -4,6 +4,8 @@
 @inject IDbContextFactory<TravelMaple.Data.TravelMapleContext> DbFactory
 @inject NavigationManager NavigationManager
 
+@attribute [Authorize(Roles = "Administrator")]
+
 <PageTitle>Details</PageTitle>
 
 <h1>Details</h1>

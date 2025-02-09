@@ -7,8 +7,11 @@
         public int Duration { get; set; }
         public string? Destination { get; set; }
         public string? Aim { get; set; }
-       
-        
+
+        public DateTime DateCreated { get; set; }
+        public DateTime DateUpdated { get; set; }
+
+
 
         public List<ItineraryDay> ItineraryDays { get; set; } = new List<ItineraryDay>();
 

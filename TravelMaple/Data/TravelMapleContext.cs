@@ -11,17 +11,17 @@ namespace TravelMaple.Data
         public DbSet<TravelMaple.Domain.TravelMapleUser> TravelMapleUser { get; set; } = default!;
         public DbSet<TravelMaple.Domain.Booking> Booking { get; set; } = default!;
         public DbSet<TravelMaple.Domain.Trip> Trip { get; set; } = default!;
-        public DbSet<TravelMaple.Domain.Make> Make { get; set; } = default!;
-        public DbSet<TravelMaple.Domain.TransportMode> TransportMode { get; set; } = default!;
         public DbSet<TravelMaple.Domain.ItineraryDay> ItineraryDay { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            builder.ApplyConfiguration(new MakeSeed());
-            builder.ApplyConfiguration(new TransportModeSeed());
+            
         }
         public DbSet<TravelMaple.Domain.Feedback> Feedback { get; set; } = default!;
     }
 }
+
+// builder.ApplyConfiguration(new RoleSeed());
+//builder.ApplyConfiguration(new UserRoleSeed());
+//builder.ApplyConfiguration(new UserSeed());

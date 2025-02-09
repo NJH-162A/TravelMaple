@@ -62,6 +62,16 @@ else
                     </InputSelect>
                     <ValidationMessage For="() => Trip.Aim" class="text-danger" />
                 </div>
+                <div class="mb-3" hidden>
+                    <label for="datecreated" class="form-label">Date Created:</label>
+                    <InputDate id="datecreated" @bind-Value="Trip.DateCreated" class="form-control" />
+                    <ValidationMessage For="() => Trip.DateCreated" class="text-danger" />
+                </div>
+                <div class="mb-3" hidden>
+                    <label for="dateupdated" class="form-label">Date Updated:</label>
+                    <InputDate id="dateupdated" @bind-Value="Trip.DateUpdated" class="form-control" />
+                    <ValidationMessage For="() => Trip.DateUpdated" class="text-danger" />
+                </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>
         </div>
@@ -79,6 +89,7 @@ else
     [SupplyParameterFromForm]
     private Trip? Trip { get; set; }
 
+
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
@@ -89,6 +100,8 @@ else
             NavigationManager.NavigateTo("notfound");
         }
     }
+
+    
 
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
@@ -121,4 +134,5 @@ else
         using var context = DbFactory.CreateDbContext();
         return context.Trip.Any(e => e.Id == id);
     }
+
 }
